@@ -27,7 +27,7 @@ describe('Apodos', () => {
     });
 
     it('Register, retrieve and transfer a nickname', async () => {
-        // Creates a nickname
+        // Register a nickname
         const nickname = 'Ficha';
         const nicknameInHex = web3.utils.asciiToHex(nickname);
         const registeredNicknameResponse = await contract.methods
@@ -65,7 +65,7 @@ describe('Apodos', () => {
     });
 
     it('Fails to register an already registed nickname', async () => {
-        // Creates a nickname
+        // Register a nickname
         const nickname = 'Ficha';
         const nicknameInHex = web3.utils.asciiToHex(nickname);
         const registeredNicknameResponse1 = await contract.methods
@@ -77,6 +77,7 @@ describe('Apodos', () => {
             .returnValues;
 
         try {
+            // Try to register the same nickname under other user
             const registeredNicknameResponse2 = await contract.methods
                 .registerNickname(nicknameInHex)
                 .send({ from: accounts[1], gas: '1000000' });
@@ -84,7 +85,7 @@ describe('Apodos', () => {
                 .events
                 .LogNickname
                 .returnValues;
-            assert(false, 'the contract not register an already registered nick.') 
+            assert(false, 'the contract should not register an already registered nick.') 
         } catch (error) { 
             assert( /invalid opcode|revert/.test(error), 
                    'the error message should be invalid opcode or revert' ) 
