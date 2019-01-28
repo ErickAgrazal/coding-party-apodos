@@ -1,10 +1,10 @@
-const path = require('path')
-const fs = require('fs')
-const solc = require('solc')
-const util = require('util')
+const path = require('path'),
+      fs = require('fs'),
+      solc = require('solc'),
+      util = require('util');
 
-const readFile = util.promisify(fs.readFile)
-const writeFile = util.promisify(fs.writeFile)
+const readFile = util.promisify(fs.readFile),
+      writeFile = util.promisify(fs.writeFile)
 
 async function execute() {
     const contractPath = path.resolve(
